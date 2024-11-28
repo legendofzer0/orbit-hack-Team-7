@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { NoLoggedIn } from "./routes/NoLoggedIn.routes";
+import { getTokenData } from "./utils/getTokenData"; // Assuming it returns a Promise
+import { NoLoggedNav } from "./components/NoLoggedNav";
+import { NormalNav } from "./components/NormalNav";
+import { Normal } from "./routes/Normal.routes";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [role, setRole] = useState(null); // Initialize role as null
 
+  useEffect(() => {
+    const fetchRole = async () => {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        try {
+          const tokenData = await getTokenData(storedToken); // Wait for the promise to resolve
+          // console.log("Decoded token data:", tokenData.role_relation.name); // Debug token data
+          setRole(tokenData.role_relation.name); // Update role state
+        } catch (error) {
+          console.error("Error decoding token:", error);
+          setRole(null); // Reset role in case of error
+        }
+      } else {
+        console.warn("No token found in localStorage."); // Debug missing token
+      }
+    };
+
+    fetchRole();
+  }, []);
+
+  if (role === "normal") {
+    return (
+      <>
+        <div>
+          <NormalNav />
+        </div>
+        <Normal />
+      </>
+    );
+  }
+
+  if (role === "Admin") {
+    return <>Admin</>;
+  }
+
+  // Default case for unauthenticated users
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <NoLoggedNav />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NoLoggedIn />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
