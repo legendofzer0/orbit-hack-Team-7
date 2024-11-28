@@ -17,7 +17,7 @@ async def handle_connection(websocket, path):
 
             # Send a response based on the received message
             if data.get("type") == "text":
-                response = {"type": "response", "content": f"Hello {data['content']}"}
+                response = {"type": "response", "content": f" {data['content']}"}
                 await websocket.send(json.dumps(response))
             elif data.get("type") == "audio":
                 # Handle audio data and send acknowledgment
