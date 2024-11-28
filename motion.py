@@ -2,6 +2,7 @@ import serial
 import time
 import pyttsx3
 import joblib
+import data_train_hardware
 from sklearn.pipeline import make_pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -17,33 +18,8 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-# Training data for the commands
-training_data = [
-    {"text": "turn on the light", "intent": "on the light"},
-    {"text": "turn off the light", "intent": "off the light"},
-    {"text": "turn on the fan", "intent": "on the fan"},
-    {"text": "turn off the fan", "intent": "off the fan"},
-    {"text": "switch on the light", "intent": "on the light"},
-    {"text": "switch off the light", "intent": "off the light"},
-    {"text": "power on the fan", "intent": "on the fan"},
-    {"text": "power off the fan", "intent": "off the fan"},
-    {"text": "enable the light", "intent": "on the light"},
-    {"text": "disable the light", "intent": "off the light"},
-    {"text": "start the fan", "intent": "on the fan"},
-    {"text": "stop the fan", "intent": "off the fan"},
-    {"text": "light on", "intent": "on the light"},
-    {"text": "light off", "intent": "off the light"},
-    {"text": "fan on", "intent": "on the fan"},
-    {"text": "fan off", "intent": "off the fan"},
-    {"text": "can you turn on the light", "intent": "on the light"},
-    {"text": "please turn off the fan", "intent": "off the fan"},
-    {"text": "activate the light", "intent": "on the light"},
-    {"text": "deactivate the fan", "intent": "off the fan"},
-    {"text": "turn on my light", "intent": "on the light"},
-    {"text": "turn off my fan", "intent": "off the fan"},
-]
-
-
+# Load training data from the external file
+training_data = data_train_hardware.load_data()  # This should be your data loading function
 texts = [item['text'] for item in training_data]
 labels = [item['intent'] for item in training_data]
 
@@ -51,7 +27,7 @@ labels = [item['intent'] for item in training_data]
 model = make_pipeline(TfidfVectorizer(), MultinomialNB())
 model.fit(texts, labels)
 
-# Save the model
+# Save the model for future use
 joblib.dump(model, 'site_management_model.pkl')
 
 # Initialize serial communication with Arduino
@@ -67,7 +43,11 @@ def handle_site(query):
     prediction = model.predict([query])[0]
     
     # Perform the corresponding action based on prediction
-    if prediction == "on the fan":
+    if prediction == "check the gas":
+        arduino.write(b'6')  # Send '6' to Arduino to check for gas
+        speak("Checking for gas...")
+        print("Checking for gas...")
+    elif prediction == "on the fan":
         arduino.write(b'4')  # Send '4' to Arduino to turn on the fan
         speak("Fan turned on.")
         print("Fan turned ON")
@@ -89,10 +69,11 @@ def handle_site(query):
 
 # Main program loop for handling user input
 print("Enter commands to control devices. Available commands:")
-print("  - 'turn on the light' to turn on the light")
-print("  - 'turn off the light' to turn off the light")
-print("  - 'turn on the fan' to turn on the fan")
-print("  - 'turn off the fan' to turn off the fan")
+print("  - 'check the gas' to check for gas detection")
+print("  - 'fan on' to turn on the fan")
+print("  - 'fan off' to turn off the fan")
+print("  - 'light on' to turn on the light")
+print("  - 'light off' to turn off the light")
 print("  - 'exit' to quit the program")
 
 # Main loop to keep taking user input
