@@ -1,4 +1,3 @@
-import { version } from "os";
 import { useState, useEffect, useRef } from "react";
 
 interface Message {
@@ -6,7 +5,7 @@ interface Message {
   content: string;
 }
 
-const ChatBotClient: React.FC = () => {
+const SmartHomeClient: React.FC = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
@@ -46,7 +45,7 @@ const ChatBotClient: React.FC = () => {
   const sendMessage = () => {
     if (socket) {
       socket.send(
-        JSON.stringify({ type: "text", mode: "chat", content: input })
+        JSON.stringify({ type: "text", mode: "smartHome", content: input })
       );
       setInput("");
     }
@@ -98,7 +97,7 @@ const ChatBotClient: React.FC = () => {
             const message = {
               type: "audio",
               content: base64Audio,
-              mode: "chat",
+              mode: "smartHome",
               filename: `recorded_audio_${Date.now()}.wav`,
             };
 
@@ -142,4 +141,4 @@ const ChatBotClient: React.FC = () => {
   );
 };
 
-export default ChatBotClient;
+export default SmartHomeClient;
