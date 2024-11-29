@@ -51,7 +51,7 @@ export function SignUp() {
           name: data.name,
           email: data.email,
           password: data.password,
-          role_id: "b7372b38-13d6-4b1f-894c-bc50e40397db",
+          role_id: "5f36f7cd-13d9-478f-a8bf-8ce05e2cac04",
         });
       } catch (err) {
         console.log(err);
