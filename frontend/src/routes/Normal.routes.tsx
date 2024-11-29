@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { PageNotFound } from "../pages/PageNotFound.pages";
-import { Dictation } from "../components/Dictation";
+import Dictation from "../components/Dictation";
 
 export function Normal() {
   return (
