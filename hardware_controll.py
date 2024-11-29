@@ -41,6 +41,20 @@ training_data = [
     {"text": "deactivate the fan", "intent": "off the fan"},
     {"text": "turn on my light", "intent": "on the light"},
     {"text": "turn off my fan", "intent": "off the fan"},
+    {"text": "open the door", "intent": "OpenDoor"},
+    {"text": "please open the door", "intent": "OpenDoor"},
+    {"text": "unlock the door", "intent": "OpenDoor"},
+    {"text": "can you open the door?", "intent": "OpenDoor"},
+    {"text": "check the person","intent": "check the person"},
+    {"text": "someone in the room","intent": "check the person"},
+    {"text": "is there is anyone in the room","intent": "check the person"},
+    {"text": "is there anyone in the room", "intent": "CheckPerson"},
+    {"text": "is there someone in the room", "intent": "CheckPerson"},
+    {"text": "can you check if someone is in the room", "intent": "CheckPerson"},
+    {"text": "is the room empty", "intent": "CheckPerson"},
+    {"text": "who is in the room", "intent": "CheckPerson"}
+    
+    
 ]
 
 
@@ -83,6 +97,7 @@ def handle_site(query):
         arduino.write(b'2')  # Send '2' to Arduino to turn off the light
         speak("Light turned off.")
         print("Light turned OFF")
+         
     else:
         speak("The query did not match any command.")
         return None
