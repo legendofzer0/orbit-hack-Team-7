@@ -4,7 +4,6 @@ import { getTokenData } from "./utils/getTokenData"; // Assuming it returns a Pr
 import { NoLoggedNav } from "./components/NoLoggedNav";
 import { NormalNav } from "./components/NormalNav";
 import { Normal } from "./routes/Normal.routes";
-
 function App() {
   const [role, setRole] = useState(null); // Initialize role as null
 
@@ -31,9 +30,6 @@ function App() {
   if (role === "normal") {
     return (
       <>
-        <div>
-          <NormalNav />
-        </div>
         <Normal />
       </>
     );

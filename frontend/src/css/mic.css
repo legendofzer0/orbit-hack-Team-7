@@ -1,0 +1,17 @@
+#button-mic {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background-image: url("../microphone-solid.svg");
+  background-size: cover; /* Ensures the image covers the button */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f0f0f0; /* Fallback color */
+  border: none; /* Optional: remove border for a cleaner look */
+  cursor: pointer;
+}
+
+#button-mic:active {
+  background-color: black; /* Change color when button is clicked */
+  transition: background-color 0.3s; /* Smooth transition */
+}
