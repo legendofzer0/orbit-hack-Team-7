@@ -9,9 +9,17 @@
   background-color: #f0f0f0; /* Fallback color */
   border: none; /* Optional: remove border for a cleaner look */
   cursor: pointer;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #button-mic:active {
   background-color: black; /* Change color when button is clicked */
   transition: background-color 0.3s; /* Smooth transition */
+}
+
+.container {
+  position: relative;
 }

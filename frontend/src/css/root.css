@@ -1,0 +1,22 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(215, 215, 215);
+  background-color: rgb(35, 35, 35);
+}
+.nav {
+  display: flex;
+  width: 100vw;
+  height: 5vh;
+  background-color: aqua;
+  padding: 10px;
+  align-content: end;
+  justify-content: end;
+  transform: translateX(-25px);
+}
+.nav-item {
+  text-decoration: none;
+  color: aliceblue;
+  padding-left: 20px;
+  font-weight: bolder;
+  font-size: 2em;
+}

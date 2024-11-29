@@ -4,6 +4,7 @@ import SpeechRecognition, {
 import webSocketService from "../websocket/websocket.service";
 import { useEffect, useState } from "react";
 import { getTokenData } from "../utils/getTokenData";
+import "../css/mic.css";
 
 const Dictation = () => {
   const { transcript, resetTranscript, browserSupportsSpeechRecognition } =
@@ -40,8 +41,8 @@ const Dictation = () => {
   };
 
   return (
-    <div>
-      <button onMouseDown={startRecording} onMouseUp={stopRecording}>
+    <div className="container">
+      <button  onMouseDown={startRecording} onMouseUp={stopRecording}>
         Mic
       </button>
       <p>{transcript}</p>
