@@ -3,6 +3,7 @@ import { SignOut } from "../components/SignOut";
 import { getId } from "../utils/getId";
 import axios from "axios";
 import { getTokenData } from "../utils/getTokenData";
+import "../css/form.css";
 
 export function Profile() {
   const id = getId();
@@ -22,7 +23,7 @@ export function Profile() {
   }
 
   return (
-    <div>
+    <div className="card">
       <h2>Welcome, {user.name}!</h2>
       <p>Email: {user.email}</p>
       <SignOut />

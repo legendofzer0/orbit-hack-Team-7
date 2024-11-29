@@ -2,6 +2,7 @@ import { useState } from "react";
 import { isEmail } from "../utils/isEmail";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/form.css";
 
 export function SignIn() {
   const navigate = useNavigate();
@@ -42,29 +43,32 @@ export function SignIn() {
   };
 
   return (
-    <div>
+    <div className="card">
       Sign Up
       <div className="form">
         <div>
-          <label htmlFor="Email">Email:</label>
+          <label htmlFor="Email">Email:</label> <br />
           <input
             type="email"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            className="form-input"
           />
         </div>
         <div>
-          <label htmlFor="Password">Password:</label>
+          <label htmlFor="Password">Password:</label> <br />
           <input
             type="password"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            className="form-input"
           />
         </div>
+        <br />
 
         <button
           onClick={() =>
@@ -73,11 +77,14 @@ export function SignIn() {
               password: password,
             })
           }
+          className="success form-input"
         >
           Sign In
         </button>
       </div>
-      I don't Have Account <Link to="/signup">Sign up </Link>
+      <span className="center">
+        I don't Have Account <Link to="/signup">Sign up </Link>
+      </span>
     </div>
   );
 }

@@ -46,7 +46,7 @@ function App() {
   // Default case for unauthenticated users
   return (
     <>
-      <div>
+      <div className="nav">
         <NoLoggedNav />
       </div>
       <NoLoggedIn />

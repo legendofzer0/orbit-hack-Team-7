@@ -9,5 +9,9 @@ export function SignOut() {
     window.location.reload(); // Reloads the application
   };
 
-  return <button onClick={handleSignOut}>Sign Out</button>;
+  return (
+    <button className="danger" onClick={handleSignOut}>
+      Sign Out
+    </button>
+  );
 }

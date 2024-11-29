@@ -2,6 +2,7 @@ import { useState } from "react";
 import { isEmail } from "../utils/isEmail";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../css/form.css";
 
 export function SignUp() {
   const [name, setName] = useState("");
@@ -60,12 +61,14 @@ export function SignUp() {
   };
 
   return (
-    <div>
-      Sign Up
+    <div className="card">
+      Sign Up <br />
+      <br />
       <div className="form">
         <div>
-          <label htmlFor="Name">Name:</label>
+          <label htmlFor="Name">Name:</label> <br />
           <input
+            className="form-input"
             type="text"
             value={name}
             onChange={(e) => {
@@ -74,8 +77,9 @@ export function SignUp() {
           />
         </div>
         <div>
-          <label htmlFor="Email">Email:</label>
+          <label htmlFor="Email">Email:</label> <br />
           <input
+            className="form-input"
             type="email"
             value={email}
             onChange={(e) => {
@@ -84,8 +88,9 @@ export function SignUp() {
           />
         </div>
         <div>
-          <label htmlFor="Password">Password:</label>
+          <label htmlFor="Password">Password:</label> <br />
           <input
+            className="form-input"
             type="password"
             value={password}
             onChange={(e) => {
@@ -94,8 +99,9 @@ export function SignUp() {
           />
         </div>
         <div>
-          <label htmlFor="cPassword">Conform Password:</label>
+          <label htmlFor="cPassword">Conform Password:</label> <br />
           <input
+            className="form-input"
             type="password"
             value={cPassword}
             onChange={(e) => {
@@ -103,6 +109,7 @@ export function SignUp() {
             }}
           />
         </div>
+        <br />
         <button
           onClick={() =>
             signUp({
@@ -112,11 +119,14 @@ export function SignUp() {
               cPassword: cPassword,
             })
           }
+          className="success form-input"
         >
           Sign Up
         </button>
       </div>
-      Already Have ab Account <Link to="/signin">Sign In</Link>
+      <span className="center">
+        Already Have an Account <Link to="/ "> Sign In</Link>
+      </span>
     </div>
   );
 }
