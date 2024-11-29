@@ -12,10 +12,10 @@ const Dictation = () => {
   const [user, setUser] = useState();
   const [speak, setSpeech] = useState();
   const [isRecording, setIsRecording] = useState(false);
-  useEffect(()=>{
+  useEffect(() => {
     setSpeech(transcript);
     console.log(speak);
-  },[transcript])
+  }, [transcript]);
   useEffect(() => {
     const gettokendataa = async () => {
       const getToken = localStorage.getItem("token");
@@ -40,36 +40,38 @@ const Dictation = () => {
     SpeechRecognition.stopListening();
     setTimeout(() => {
       sendSpeech();
-    }, 2000); 
+    }, 2000);
   };
   const toggleSpeechRecognition = () => {
-    if(!isRecording) {
-      startRecording();}
-      else {
-        stopRecording();
-      }
-  }
-  const sendSpeech =  () => {  
+    if (!isRecording) {
+      startRecording();
+    } else {
+      stopRecording();
+    }
+  };
+  const sendSpeech = () => {
     console.log(transcript);
     const t = transcript;
     resetTranscript();
-     webSocketService.sendMessage({
+    webSocketService.sendMessage({
       userId: user.id,
       userName: user.name,
       content: t,
     });
-  }
+  };
 
   return (
-<<<<<<< HEAD
-    <div className="container">
-      <button  onMouseDown={startRecording} onMouseUp={stopRecording}>
-=======
     <div>
-      <button onClick={()=>{toggleSpeechRecognition()}}>
->>>>>>> 56b3e4ec4b153a640b7a0fb77a95066012fe4883
-        Mic
-      </button>
+      <span id="btn-back">
+        <button
+          id="button-mic"
+          onClick={() => {
+            toggleSpeechRecognition();
+          }}
+        >
+          Mic
+        </button>
+      </span>
       <p>{transcript}</p>
     </div>
   );

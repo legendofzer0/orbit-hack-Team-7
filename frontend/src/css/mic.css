@@ -16,10 +16,41 @@
 }
 
 #button-mic:active {
-  background-color: black; /* Change color when button is clicked */
+  background-color: rgb(255, 96, 96); /* Change color when button is clicked */
   transition: background-color 0.3s; /* Smooth transition */
 }
 
 .container {
   position: relative;
+}
+
+#btn-back {
+  width: 270px;
+  height: 270px;
+  border: 2px solid rgb(224, 104, 104);
+  border-radius: 50%; /* Makes it circular */
+  background: linear-gradient(
+    135deg,
+    #ffe5e5,
+    #ffc2c2
+  ); /* Smooth gradient background */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; /* Centers content inside */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth animations */
+}
+
+#btn-back:hover {
+  transform: translate(-50%, -50%) scale(1.05); /* Slightly enlarges on hover */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3); /* Deepens shadow */
+}
+
+#btn-back:active {
+  transform: translate(-50%, -50%) scale(0.95); /* Shrinks on click */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Minimal shadow */
 }
