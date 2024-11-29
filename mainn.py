@@ -48,58 +48,64 @@ def get_weather(city_name=""):
 async def handle_connection(websocket, path):
     print("Client connected")
     initial_message = {"type": "welcome", "content": "Welcome to the WebSocket server!"}
-    await websocket.send(json.dumps(initial_message))
+    await websocket.send(json.dumps(initial_message))  # Send initial message to client
     
-    chat_session = setup_chatbot()
+    chat_session = setup_chatbot()  # Initialize the AI chatbot session
     try:
         async for message in websocket:
             print(f"Received: {message}")
-            data = json.loads(message)
-            if data.get("type") == "text":
-                query = data.get("content", "").strip()
-                print(f"Query received from client: {query}")
-
-                if query.lower() == "exit":
-                    response = {"type": "response", "content": "Exiting... Goodbye!"}
-                    await websocket.send(json.dumps(response))
-                    break
-
-                # Menu handling
-                if query == "1":
+            data = json.loads(message)  # Parse the received JSON message
+            
+            # Extract the "content" field (query)
+            query = data.get("content", "").strip()
+            
+            if query:  # If the query is not empty
+                print(f"Query received: {query}")
+                
+                # Check if the query is "1" to start chatbot interaction
+                if query == "1" or query == "one" or query == "chatbot":
                     while True:
-                        response_prompt = {"type": "prompt", "content": "Send a query or type 'exit' to quit."}
+                        # Prompt the user to send another query or type 'exit' to quit
+                        response_prompt = {"type": "prompt", "content": "Enter your query or type 'exit' to quit."}
                         await websocket.send(json.dumps(response_prompt))
+
+                        # Receive the next message from the client
                         message = await websocket.recv()
                         next_data = json.loads(message)
                         next_query = next_data.get("content", "").strip()
 
                         if next_query.lower() == "exit":
+                            # End the chatbot session
                             response = {"type": "response", "content": "Session ended. Goodbye!"}
                             await websocket.send(json.dumps(response))
                             break
 
+                        # Send the query to the chatbot and get the response content
                         response_content = chat_session.send_message(next_query).text
+
+                        # Prepare the response JSON
                         response = {"type": "response", "content": response_content}
-                        await websocket.send(json.dumps(response))
 
-                elif query == "2":
+                        # Serialize the response to a JSON string
+                        json_response = json.dumps(response)
+
+                        # Print the JSON string before sending it (Timmer's response)
+                        print(f"Timmer Response (JSON): {json_response}")
+
+                        # Send the response to the WebSocket client
+                        await websocket.send(json_response)
+                elif query == "2" or query == "home assistance" or query == "two":
                     mainx()
-                    response = {"type": "response", "content": "Home assistance executed."}
-                    await websocket.send(json.dumps(response))
-
                 elif query == "3":
-                    city = "current location"
-                    weather = get_weather(city)
-                    response = {"type": "response", "content": weather}
-                    await websocket.send(json.dumps(response))
-
-                else:
-                    response = {"type": "response", "content": "Invalid choice. Please try again."}
-                    await websocket.send(json.dumps(response))
-
+                        er = input("say the city name: ")
+                        we = get_weather(er)
+                        print(we)
+            
+            else:
+                print("No valid content received")
+    
     except websockets.ConnectionClosed:
         print("Client disconnected")
-
 
 # Main function to start the WebSocket server
 async def main():

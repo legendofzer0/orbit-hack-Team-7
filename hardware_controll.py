@@ -41,22 +41,8 @@ training_data = [
     {"text": "deactivate the fan", "intent": "off the fan"},
     {"text": "turn on my light", "intent": "on the light"},
     {"text": "turn off my fan", "intent": "off the fan"},
-    {"text": "open the door", "intent": "OpenDoor"},
-    {"text": "please open the door", "intent": "OpenDoor"},
-    {"text": "unlock the door", "intent": "OpenDoor"},
-    {"text": "can you open the door?", "intent": "OpenDoor"},
-    {"text": "check the person","intent": "check the person"},
-    {"text": "someone in the room","intent": "check the person"},
-    {"text": "is there is anyone in the room","intent": "check the person"},
-    {"text": "is there anyone in the room", "intent": "CheckPerson"},
-    {"text": "is there someone in the room", "intent": "CheckPerson"},
-    {"text": "can you check if someone is in the room", "intent": "CheckPerson"},
-    {"text": "is the room empty", "intent": "CheckPerson"},
-    {"text": "who is in the room", "intent": "CheckPerson"}
-    
-    
+    {"text": "detect the motion", "intent": "detect motion"}
 ]
-
 
 texts = [item['text'] for item in training_data]
 labels = [item['intent'] for item in training_data]
@@ -97,7 +83,10 @@ def handle_site(query):
         arduino.write(b'2')  # Send '2' to Arduino to turn off the light
         speak("Light turned off.")
         print("Light turned OFF")
-         
+    elif prediction == "detect motion":
+        arduino.write(b'M')  # Send 'M' to Arduino to check motion
+        speak("Detecting motion...")
+        print("Motion Detection Activated")
     else:
         speak("The query did not match any command.")
         return None
@@ -108,6 +97,7 @@ print("  - 'turn on the light' to turn on the light")
 print("  - 'turn off the light' to turn off the light")
 print("  - 'turn on the fan' to turn on the fan")
 print("  - 'turn off the fan' to turn off the fan")
+print("  - 'detect the motion' to detect motion in the room")
 print("  - 'exit' to quit the program")
 
 # Main loop to keep taking user input
