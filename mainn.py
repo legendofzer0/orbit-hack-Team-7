@@ -26,6 +26,46 @@ def setup_chatbot():
     return model.start_chat(history=[])
 
 # WebSocket server handler
+async def handle_query(query, chat_session):
+    if query in ["1", "chatbot"]:
+        response_content = chat_session.send_message("Chatbot started").text
+    elif query in ["2", "smart home"]:
+        response_content = "Switching to Smart Home Assistant..."
+        mainxer()  # Assuming this function does something related to smart home
+    elif query in ["3", "weather"]:
+        response_content = "Weather feature is under construction."
+    else:
+        response_content = chat_session.send_message(query).text
+
+    # Prepare the response
+    response = {"type": "response", "content": response_content}
+    json_response = json.dumps(response)
+    print(f"Sending response: {json_response}")
+    return json_response
+
+async def handle_message(websocket, message, chat_session):
+    print(f"Received: {message}")
+    try:
+        data = json.loads(message)  # Parse the received JSON message
+        query = data.get("content", "").strip()
+
+        if not query:
+            print("No valid content received")
+            return None  # Return None if no valid content
+
+        print(f"Query received: {query}")
+        if query == "exit":
+            print("Session closed by client")
+            return "exit"  # Special case for exit command
+
+        # Handle the query by calling the separate function
+        json_response = await handle_query(query, chat_session)
+        return json_response
+    except Exception as e:
+        print(f"Error processing message: {e}")
+        return json.dumps({"type": "error", "content": str(e)})
+
+# Function to handle WebSocket connection
 async def handle_connection(websocket, path):
     print("Client connected")
     initial_message = {"type": "welcome", "content": "Welcome to the WebSocket server!"}
@@ -36,46 +76,21 @@ async def handle_connection(websocket, path):
         chat_session = setup_chatbot()  # Initialize the AI chatbot session
 
         async for message in websocket:
-            print(f"Received: {message}")
-            try:
-                data = json.loads(message)  # Parse the received JSON message
-                query = data.get("content", "").strip()
+            # Use handle_message to process incoming messages
+            response = await handle_message(websocket, message, chat_session)
 
-                if not query:
-                    print("No valid content received")
-                    continue
+            if response == "exit":
+                break  # End the session if "exit" command was received
 
-                print(f"Query received: {query}")
-                if query == "exit":
-                    print("Session closed by client")
-                    break
+            if response:
+                # Send the response to the client
+                await websocket.send(response)
 
-                # Handle specific query cases
-                if query in ["1", "chatbot"]:
-                    response_content = chat_session.send_message("Chatbot started").text
-                elif query in ["2", "smart home"]:
-                    response_content = "Switching to Smart Home Assistant..."
-                    mainxer()
-                elif query in ["3", "weather"]:
-                    response_content = "Weather feature is under construction."
-                else:
-                    response_content = chat_session.send_message(query).text
-
-                # Prepare the response
-                response = {"type": "response", "content": response_content}
-                json_response = json.dumps(response)
-                print(f"Sending response: {json_response}")
-
-                # Send the response
-                await websocket.send(json_response)
-            except Exception as e:
-                print(f"Error processing message: {e}")
-                await websocket.send(json.dumps({"type": "error", "content": str(e)}))
     except Exception as e:
         print(f"Connection error: {e}")
     finally:
         print("Client disconnected")
-
+# Function to handle WebSocket connection
 # Start the WebSocket server
 async def main():
     async with websockets.serve(handle_connection, "localhost", 8765):
