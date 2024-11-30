@@ -1,0 +1,142 @@
+[
+    {
+        "text": "turn on the light",
+        "intent": "on the light"
+    },
+    {
+        "text": "turn off the light",
+        "intent": "off the light"
+    },
+    {
+        "text": "turn on the fan",
+        "intent": "on the fan"
+    },
+    {
+        "text": "turn off the fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "detect the motion",
+        "intent": "detect motion"
+    },
+    {
+        "text": "switch on the light",
+        "intent": "on the light"
+    },
+    {
+        "text": "switch off the light",
+        "intent": "off the light"
+    },
+    {
+        "text": "power on the fan",
+        "intent": "on the fan"
+    },
+    {
+        "text": "power off the fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "can you turn on the light",
+        "intent": "on the light"
+    },
+    {
+        "text": "can you turn off the fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "please turn on the light",
+        "intent": "on the light"
+    },
+    {
+        "text": "please turn off the light",
+        "intent": "off the light"
+    },
+    {
+        "text": "enable the fan",
+        "intent": "on the fan"
+    },
+    {
+        "text": "disable the fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "light on",
+        "intent": "on the light"
+    },
+    {
+        "text": "light off",
+        "intent": "off the light"
+    },
+    {
+        "text": "fan on",
+        "intent": "on the fan"
+    },
+    {
+        "text": "fan off",
+        "intent": "off the fan"
+    },
+    {
+        "text": "activate the light",
+        "intent": "on the light"
+    },
+    {
+        "text": "deactivate the light",
+        "intent": "off the light"
+    },
+    {
+        "text": "start the fan",
+        "intent": "on the fan"
+    },
+    {
+        "text": "stop the fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "can you switch on the fan",
+        "intent": "on the fan"
+    },
+    {
+        "text": "can you switch off the fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "turn on my light",
+        "intent": "on the light"
+    },
+    {
+        "text": "turn off my light",
+        "intent": "off the light"
+    },
+    {
+        "text": "turn on my fan",
+        "intent": "on the fan"
+    },
+    {
+        "text": "turn off my fan",
+        "intent": "off the fan"
+    },
+    {
+        "text": "check for motion",
+        "intent": "detect motion"
+    },
+    {
+        "text": "is there any motion",
+        "intent": "detect motion"
+    },
+    {
+        "text": "motion detection",
+        "intent": "detect motion"
+    },
+    {
+        "text": "start detecting motion",
+        "intent": "detect motion"
+    },
+    {
+        "text": "motion check",
+        "intent": "detect motion"
+    },
+    {
+        "text": "detect object",
+        "intent": "detect object"
+    }
+]

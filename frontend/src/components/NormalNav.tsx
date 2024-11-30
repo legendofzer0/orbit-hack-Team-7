@@ -6,9 +6,6 @@ export function NormalNav() {
       <Link to="/" className="nav-item">
         AI
       </Link>
-      <Link to="/Notification" className="nav-item">
-        Notification
-      </Link>
       <Link to="/profile" className="nav-item">
         Profile
       </Link>

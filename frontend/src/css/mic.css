@@ -54,3 +54,85 @@
   transform: translate(-50%, -50%) scale(0.95); /* Shrinks on click */
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Minimal shadow */
 }
+
+.chat-box {
+  position: fixed; /* Fix the position on the side */
+  top: 20px; /* Distance from the top */
+  right: 20px; /* Distance from the right; change to `left: 20px` for left side */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Arial", sans-serif;
+  width: 300px;
+  height: 400px; /* Set a fixed height */
+  overflow-y: auto; /* Allows scrolling if the content overflows */
+  z-index: 1000; /* Ensures the chat box stays above other elements */
+}
+
+.chat-box h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.chat-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-box li {
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  color: #333;
+  width: 100%; /* Take full width of the parent container */
+  word-wrap: break-word; /* Break long words */
+  white-space: normal; /* Allow text to wrap to the next line */
+  opacity: 0;
+  animation: fadeIn 0.5s forwards, typingEffect 2s steps(30) forwards;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Typing effect animation */
+@keyframes typingEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Add delays for each answer */
+.chat-box li:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.chat-box li:nth-child(2) {
+  animation-delay: 2.5s;
+}
+
+.chat-box li:nth-child(3) {
+  animation-delay: 5s;
+}
+
+/* Optional scrollbar hiding for better appearance */
+.chat-box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.chat-box {
+  scrollbar-width: none; /* Firefox */
+}
